@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recanto do Sossego — Ilha particular para diária e pernoite</title>
+<meta name="description" content="Ilha particular no Lago de Tucuruí. Diária para até 12 pessoas ou pernoite no Chalé Família e no Chalé Suíço. Reserve pelo WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F2622;
+    --ink-2:#173832;
+    --ink-3:#1F433C;
+    --sand:#F4EFDE;
+    --sand-2:#EAE1C6;
+    --wood:#B06A34;
+    --wood-dark:#8A4F22;
+    --moss:#5C7A52;
+    --gold:#D1A24A;
+    --text-light:#F7F2E4;
+    --text-light-dim:#CBD9D2;
+    --text-dark:#1B241E;
+    --text-dim:#54615A;
+    --line:#D9CFAF;
+    --line-dark:#2C4A42;
+    --radius:14px;
+    --maxw:1180px;
+    font-size:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--text-dark);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--wood);
+  }
+  .eyebrow.on-dark{color:var(--gold);}
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+    outline:2px solid var(--wood);
+    outline-offset:3px;
+  }
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  header.site-nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(244,239,222,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;padding:16px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:'Fraunces',serif;font-weight:600;font-size:19px;
+    display:flex;align-items:center;gap:9px;color:var(--ink);
+  }
+  .logo svg{flex-shrink:0;}
+  .nav-links{display:flex;gap:26px;align-items:center;}
+  .nav-links a{font-size:14.5px;color:var(--text-dark);opacity:0.82;transition:opacity .15s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--ink);color:var(--text-light);
+    padding:10px 20px;border-radius:100px;font-size:14px;font-weight:500;
+    white-space:nowrap;transition:background .15s;
+  }
+  .nav-cta:hover{background:var(--wood-dark);}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:6px;}
+  .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;transition:.2s;}
+
+  @media (max-width:920px){
+    .nav-links{
+      position:fixed;inset:64px 0 0 0;background:var(--sand);
+      flex-direction:column;justify-content:flex-start;align-items:flex-start;
+      padding:36px 32px;gap:22px;
+      transform:translateX(100%);transition:transform .25s ease;
+      border-top:1px solid var(--line);
+    }
+    .nav-links.open{transform:translateX(0);}
+    .nav-links a{font-size:19px;}
+    .nav-toggle{display:block;}
+  }
+
+  .hero{
+    position:relative;overflow:hidden;
+    background:radial-gradient(120% 90% at 15% 0%, #1C443C 0%, var(--ink) 55%, #0A1C18 100%);
+    color:var(--text-light);
+    padding:96px 0 0;
+  }
+  .hero-inner{
+    max-width:var(--maxw);margin:0 auto;padding:0 32px;
+    display:grid;grid-template-columns:1.05fr 0.95fr;gap:40px;align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.3rem,4.4vw,3.4rem);
+    line-height:1.08;color:var(--text-light);
+    max-width:16ch;
+  }
+  .hero h1 em{
+    font-style:italic;color:var(--gold);font-weight:400;
+  }
+  .hero-sub{
+    margin-top:22px;font-size:17px;color:var(--text-light-dim);max-width:46ch;
+  }
+  .hero-ctas{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:14px 26px;border-radius:100px;font-size:15px;font-weight:500;
+    border:1px solid transparent;cursor:pointer;transition:transform .15s, background .15s, border-color .15s;
+    font-family:'Inter',sans-serif;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--gold);color:var(--ink);}
+  .btn-primary:hover{background:#e0b463;}
+  .btn-ghost{border-color:rgba(247,242,228,0.35);color:var(--text-light);}
+  .btn-ghost:hover{border-color:rgba(247,242,228,0.7);}
+  .btn-dark{background:var(--ink);color:var(--text-light);}
+  .btn-dark:hover{background:var(--wood-dark);}
+
+  .hero-stats{
+    margin-top:52px;padding-top:28px;border-top:1px solid rgba(247,242,228,0.16);
+    display:flex;gap:40px;flex-wrap:wrap;
+  }
+  .hero-stat b{
+    display:block;font-family:'Fraunces',serif;font-size:1.7rem;font-weight:500;color:var(--gold);
+  }
+  .hero-stat span{font-size:12.5px;color:var(--text-light-dim);}
+
+  .hero-art{position:relative;height:420px;}
+  .hero-art svg{width:100%;height:100%;}
+
+  @media (max-width:900px){
+    .hero-inner{grid-template-columns:1fr;padding-bottom:40px;}
+    .hero-art{height:280px;order:-1;}
+    .hero h1{max-width:none;}
+  }
+
+  section{padding:96px 0;}
+  .section-head{max-width:660px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(1.9rem,3.2vw,2.6rem);margin-top:10px;}
+  .section-head p{margin-top:16px;color:var(--text-dim);font-size:16.5px;}
+
+  .about{background:var(--sand);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .about-copy p{color:var(--text-dim);font-size:16.5px;margin-bottom:16px;}
+  .about-copy p:last-child{margin-bottom:0;}
+  .feature-list{display:flex;flex-direction:column;gap:22px;}
+  .feature-item{display:flex;gap:16px;align-items:flex-start;}
+  .feature-item .ico{
+    width:38px;height:38px;flex-shrink:0;border-radius:50%;
+    background:var(--sand-2);display:flex;align-items:center;justify-content:center;
+  }
+  .feature-item h4{font-size:16px;margin-bottom:4px;}
+  .feature-item p{color:var(--text-dim);font-size:14.5px;}
+
+  @media (max-width:880px){ .about-grid{grid-template-columns:1fr;gap:40px;} }
+
+  .selector{background:var(--ink);color:var(--text-light);}
+  .selector .section-head p{color:var(--text-light-dim);}
+  .selector .section-head h2{color:var(--text-light);}
+  .selector-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:50px;align-items:center;}
+  .toggle-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+  .toggle-btn{
+    padding:11px 18px;border-radius:100px;border:1px solid rgba(247,242,228,0.25);
+    background:transparent;color:var(--text-light-dim);font-size:14px;cursor:pointer;
+    font-family:'Inter',sans-serif;transition:all .18s;
+  }
+  .toggle-btn.active{background:var(--gold);border-color:var(--gold);color:var(--ink);font-weight:500;}
+  .toggle-btn:hover:not(.active){border-color:rgba(247,242,228,0.55);color:var(--text-light);}
+
+  .info-panel{
+    background:var(--ink-2);border:1px solid var(--line-dark);border-radius:var(--radius);
+    padding:32px;min-height:260px;
+  }
+  .info-panel h3{font-size:1.4rem;color:var(--text-light);margin-bottom:6px;}
+  .info-panel .tag{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:0.06em;}
+  .info-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0;}
+  .info-specs div span{display:block;font-size:12px;color:var(--text-light-dim);}
+  .info-specs div b{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:500;color:var(--text-light);}
+  .info-panel .desc{color:var(--text-light-dim);font-size:15px;margin-bottom:22px;}
+  @media (max-width:520px){ .info-specs{grid-template-columns:1fr 1fr;} }
+
+  .island-map{position:relative;}
+  .island-map svg{width:100%;height:auto;}
+  .pin{transition:opacity .25s;}
+  .pin.dim{opacity:0.28;}
+
+  @media (max-width:900px){ .selector-grid{grid-template-columns:1fr;gap:36px;} }
+
+  .stay{padding:96px 0;}
+  .stay:nth-of-type(even){background:var(--sand-2);}
+  .stay-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  .stay-grid.reverse .stay-copy{order:2;}
+  .stay-copy h3{font-size:clamp(1.7rem,2.8vw,2.2rem);margin:8px 0 16px;}
+  .stay-copy p.lead{color:var(--text-dim);font-size:16px;margin-bottom:24px;}
+  .spec-row{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:26px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .spec-row div span{display:block;font-size:12px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;}
+  .spec-row div b{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:500;}
+  .amenity-tags{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px;}
+  .amenity-tags span{
+    font-size:13px;background:var(--sand);border:1px solid var(--line);padding:7px 13px;border-radius:100px;color:var(--text-dark);
+  }
+
+  .photo-set{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:420px;}
+  .photo-set .ph{border-radius:12px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:14px;}
+  .photo-set .ph span{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:rgba(255,255,255,0.85);
+    background:rgba(15,38,34,0.55);padding:5px 10px;border-radius:100px;
+  }
+  .photo-set .ph.big{grid-row:span 2;}
+  .ph{background-color:var(--ink-2);background-size:cover;background-position:center;}
+  .ph-a1{background-image:url('images/sala-area-estar.jpg');}
+  .ph-b1{background-image:url('images/fachada-chale.jpg');}
+
+  @media (max-width:900px){
+    .stay-grid, .stay-grid.reverse{grid-template-columns:1fr;}
+    .stay-grid.reverse .stay-copy{order:0;}
+    .photo-set{height:320px;}
+  }
+
+  .experiences{background:var(--ink);color:var(--text-light);}
+  .experiences .section-head h2{color:var(--text-light);}
+  .experiences .section-head p{color:var(--text-light-dim);}
+  .exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);border-radius:var(--radius);overflow:hidden;}
+  .exp-item{background:var(--ink);padding:30px 24px;}
+  .exp-item .ico{margin-bottom:16px;}
+  .exp-item h4{font-size:15.5px;color:var(--text-light);margin-bottom:6px;}
+  .exp-item p{font-size:13.5px;color:var(--text-light-dim);}
+  @media (max-width:880px){ .exp-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:520px){ .exp-grid{grid-template-columns:1fr;} }
+
+  .testimonials{background:var(--sand);}
+  .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .test-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;}
+  .test-card p.quote{font-family:'Fraunces',serif;font-style:italic;font-size:18px;line-height:1.5;color:var(--text-dark);margin-bottom:20px;}
+  .test-card .who{font-size:13.5px;color:var(--text-dim);font-family:'IBM Plex Mono',monospace;}
+  @media (max-width:880px){ .test-grid{grid-template-columns:1fr;} }
+
+  .booking{background:var(--sand-2);}
+  .booking-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;}
+  .booking-info h2{font-size:clamp(1.8rem,3vw,2.3rem);margin-top:10px;margin-bottom:18px;}
+  .booking-info p{color:var(--text-dim);font-size:16px;margin-bottom:26px;}
+  .contact-line{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:15px;}
+  .contact-line .ico{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+  form.book-form{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field label{font-size:13px;color:var(--text-dim);}
+  .field input, .field select, .field textarea{
+    border:1px solid var(--line);border-radius:8px;padding:11px 13px;font-size:14.5px;
+    font-family:'Inter',sans-serif;background:var(--sand);color:var(--text-dark);
+  }
+  .field textarea{resize:vertical;min-height:90px;}
+  .field input:focus, .field select:focus, .field textarea:focus{outline:2px solid var(--wood);outline-offset:1px;}
+  .book-form .btn-primary{width:100%;justify-content:center;background:var(--ink);color:var(--text-light);margin-top:6px;}
+  .book-form .btn-primary:hover{background:var(--wood-dark);}
+  .form-note{font-size:12.5px;color:var(--text-dim);margin-top:12px;text-align:center;}
+
+  @media (max-width:900px){
+    .booking-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+  }
+
+  footer{background:var(--ink);color:var(--text-light-dim);padding:56px 0 28px;}
+  .footer-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;padding-bottom:36px;border-bottom:1px solid var(--line-dark);}
+  .footer-logo{font-family:'Fraunces',serif;font-size:18px;color:var(--text-light);display:flex;align-items:center;gap:9px;}
+  .footer-links{display:flex;gap:26px;flex-wrap:wrap;}
+  .footer-links a{font-size:14px;}
+  .footer-links a:hover{color:var(--text-light);}
+  .footer-bottom{padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .wa-float{
+    position:fixed;bottom:22px;right:22px;z-index:200;
+    width:56px;height:56px;border-radius:50%;background:#25D366;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+  }
+  .wa-float:hover{filter:brightness(1.05);}
+
+  /* ===== Ajustes finos para celular: tudo em coluna única, nada cortado ===== */
+  html, body{overflow-x:hidden;max-width:100%;}
+  img, svg{max-width:100%;height:auto;}
+  .hero-art svg{height:100%;}
+
+  @media (max-width:600px){
+    .wrap{padding:0 20px;}
+    section{padding:60px 0;}
+    .nav-inner{padding:14px 18px;}
+    .logo{font-size:16.5px;gap:7px;}
+    .logo svg{width:22px;height:22px;}
+    .hero{padding-top:80px;}
+    .hero-inner{padding:0 20px;gap:26px;}
+    .hero-sub{font-size:16px;}
+    .hero-stats{gap:22px;margin-top:36px;padding-top:20px;}
+    .hero-ctas{gap:10px;}
+    .hero-ctas .btn{flex:1 1 auto;justify-content:center;}
+    .btn{padding:13px 18px;font-size:14px;}
+    .section-head{margin-bottom:32px;}
+    .toggle-row{gap:8px;}
+    .toggle-btn{flex:1 1 auto;text-align:center;padding:10px 14px;}
+    .info-panel{padding:22px;min-height:0;}
+    .info-specs{gap:12px;}
+    .spec-row{gap:16px;padding:16px 0;}
+    .spec-row div{flex:1 1 40%;}
+    .amenity-tags span{font-size:12.5px;padding:6px 11px;}
+    form.book-form{padding:20px;}
+    .form-row{gap:12px;}
+    .exp-item{padding:22px 18px;}
+    .test-card{padding:22px;}
+    .test-card p.quote{font-size:16.5px;}
+    .footer-grid{gap:22px;}
+    .footer-links{gap:16px 22px;}
+    .footer-bottom{flex-direction:column;gap:6px;}
+    .wa-float{width:50px;height:50px;bottom:16px;right:16px;}
+  }
+
+  @media (max-width:440px){
+    :root{font-size:15px;}
+    .hero-art{height:220px;}
+    .hero-stats{flex-direction:column;align-items:flex-start;gap:14px;}
+    .hero-stat{display:flex;align-items:baseline;gap:8px;}
+    .hero-stat b{font-size:1.25rem;}
+    .photo-set{grid-template-columns:1fr;grid-template-rows:none;height:auto;gap:10px;}
+    .photo-set .ph{height:190px;}
+    .photo-set .ph.big{grid-row:auto;height:230px;}
+    .info-specs{grid-template-columns:1fr 1fr;}
+    .contact-line{font-size:14px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#topo" class="logo">
+      <svg width="24" height="24" viewBox="0 0 26 26" fill="none"><path d="M2 18c4-9 8-13 11-13s7 4 11 13c-3-2-6-3-11-3s-8 1-11 3Z" fill="#B06A34"/><path d="M2 20.5c4-2 7-3 11-3s7 1 11 3" stroke="#5C7A52" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Recanto do Sossego
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#ilha">A ilha</a>
+      <a href="#escolha">Acomodações</a>
+      <a href="#experiencias">Estrutura</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#reservas" class="nav-cta">Reservar</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="topo">
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow on-dark">Ilha particular · Tucuruí</p>
+      <h1>Um dia inteiro, ou uma noite completa na <em>ilha</em>.</h1>
+      <p class="hero-sub">Reserve a diária para até 12 pessoas, com toda a estrutura da ilha à disposição, ou escolha o pernoite no Chalé Família (até 6 pessoas) ou no Chalé Suíço (até 4 pessoas, com jacuzzi).</p>
+      <div class="hero-ctas">
+        <a href="#escolha" class="btn btn-primary">Ver opções e valores</a>
+        <a href="https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20Recanto%20do%20Sossego" class="btn btn-ghost">Falar no WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b>12</b><span>Pessoas na diária</span></div>
+        <div class="hero-stat"><b>2</b><span>Chalés para pernoite</span></div>
+        <div class="hero-stat"><b>50%</b><span>Sinal garante a reserva</span></div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 480 420" fill="none">
+        <ellipse cx="240" cy="360" rx="220" ry="18" fill="#0A1C18"/>
+        <path d="M40 250 Q90 230 140 248 T240 250 T340 240 T440 255" stroke="#2E534B" stroke-width="2" fill="none" opacity="0.6"/>
+        <path d="M20 280 Q90 258 160 278 T300 276 T460 288" stroke="#2E534B" stroke-width="2" fill="none" opacity="0.4"/>
+        <path d="M110 320 C90 260 140 190 240 185 C330 180 380 250 360 315 C330 345 280 300 240 305 C190 310 150 350 110 320Z" fill="#274A41"/>
+        <path d="M120 315 C105 265 150 205 235 200 C315 196 358 255 345 308" fill="#345F53"/>
+        <g transform="translate(178,150)">
+          <rect x="0" y="30" width="52" height="46" fill="#B06A34"/>
+          <path d="M-6 30 L26 4 L58 30Z" fill="#8A4F22"/>
+          <rect x="14" y="46" width="10" height="14" fill="#0F2622"/>
+          <rect x="30" y="46" width="10" height="10" fill="#0F2622"/>
+        </g>
+        <g transform="translate(268,178)">
+          <rect x="0" y="20" width="34" height="34" fill="#5C7A52"/>
+          <path d="M-5 20 L17 0 L39 20Z" fill="#3F5A38"/>
+          <rect x="10" y="32" width="8" height="10" fill="#0F2622"/>
+        </g>
+        <circle cx="400" cy="70" r="34" fill="#D1A24A" opacity="0.85"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="ilha">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <p class="eyebrow">A ilha</p>
+      <h2 style="font-size:clamp(1.9rem,3.2vw,2.6rem);margin:10px 0 22px;">Um pedaço de terra cercado de água, e nada mais.</h2>
+      <div class="about-copy">
+        <p>O Recanto do Sossego é uma ilha particular preparada tanto para quem quer passar só o dia quanto para quem quer pernoitar. A cozinha já vem equipada com pratos, talheres, copos e panelas, então não falta nada para curtir o dia inteiro por lá.</p>
+        <p>Além da diária, temos dois chalés para quem quer ficar até o dia seguinte: o Chalé Família, maior e mais completo, e o Chalé Suíço, mais reservado e com jacuzzi.</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C7A52" stroke-width="1.8"><path d="M3 17c3-1 5-2 9-2s6 1 9 2M3 12c3-1 5-2 9-2s6 1 9 2"/><path d="M12 2v10"/></svg></div>
+          <div><h4>Cozinha equipada</h4><p>Pratos, talheres, copos e panelas disponíveis para uso durante a estadia.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C7A52" stroke-width="1.8"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <div><h4>Diária ou pernoite</h4><p>Escolha só o dia (09h às 17h) ou fique até o dia seguinte em um dos chalés.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C7A52" stroke-width="1.8"><path d="M4 21c4-8 6-14 8-18 2 4 4 10 8 18"/><path d="M4 21h16"/></svg></div>
+          <div><h4>Área de churrasco com sinuca</h4><p>Espaço com churrasqueira e mesa de sinuca para os momentos em grupo.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C7A52" stroke-width="1.8"><path d="M12 3v6l4 2"/><circle cx="12" cy="12" r="9"/></svg></div>
+          <div><h4>Reserva com sinal de 50%</h4><p>Garanta sua data com o pagamento de metade do valor combinado.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="selector" id="escolha">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow on-dark">Escolha sua estadia</p>
+      <h2>Diária, Chalé Família ou Chalé Suíço.</h2>
+      <p>Selecione uma opção para ver capacidade, horários e valores.</p>
+    </div>
+    <div class="selector-grid reveal">
+      <div>
+        <div class="toggle-row" role="group" aria-label="Escolher tipo de estadia">
+          <button class="toggle-btn active" data-target="diaria">Diária (dia todo)</button>
+          <button class="toggle-btn" data-target="familia">Chalé Família</button>
+          <button class="toggle-btn" data-target="suico">Chalé Suíço</button>
+        </div>
+        <div class="info-panel" id="infoPanel">
+          <span class="tag" id="infoTag">DIÁRIA · DIA TODO</span>
+          <h3 id="infoTitle">A ilha inteira por um dia</h3>
+          <div class="info-specs">
+            <div><span>Capacidade</span><b id="infoCap">Até 12 pessoas</b></div>
+            <div><span>Horário</span><b id="infoRooms">09h às 17h</b></div>
+            <div><span>Valor</span><b id="infoPrice">R$ 400</b></div>
+          </div>
+          <p class="desc" id="infoDesc">Acesso à ilha e à cozinha equipada (pratos, talheres, copos e panelas). Pessoa além da capacidade combinada: R$20 por pessoa.</p>
+          <a href="https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20a%20di%C3%A1ria%20no%20Recanto%20do%20Sossego" class="btn btn-primary" id="infoCta">Consultar disponibilidade</a>
+        </div>
+      </div>
+      <div class="island-map" aria-hidden="true">
+        <svg viewBox="0 0 420 380">
+          <path d="M20 210 Q90 190 160 208 T260 206 T400 218" stroke="#2E534B" stroke-width="2" fill="none" opacity="0.5"/>
+          <path d="M0 240 Q80 220 150 238 T280 235 T420 246" stroke="#2E534B" stroke-width="2" fill="none" opacity="0.35"/>
+          <path d="M90 280 C70 220 120 140 215 135 C305 130 355 195 340 260 C310 300 255 250 215 258 C165 265 130 305 90 280Z" fill="#274A41"/>
+          <path d="M100 275 C88 225 130 160 212 155 C295 150 335 205 322 255" fill="#345F53"/>
+          <path d="M150 260 Q200 245 250 258" stroke="#5C7A52" stroke-width="2" stroke-dasharray="3 5" fill="none" opacity="0.7"/>
+          <g id="pinFamilia" class="pin" transform="translate(148,150)">
+            <circle cx="0" cy="0" r="15" fill="#D1A24A"/>
+            <path d="M-6 2h12v8h-12z M-8 2 0-6 8 2" fill="#0F2622"/>
+            <text x="0" y="32" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#F7F2E4">Chalé Família</text>
+          </g>
+          <g id="pinSuico" class="pin" transform="translate(258,190)">
+            <circle cx="0" cy="0" r="13" fill="#D1A24A"/>
+            <path d="M-6 3h12v6h-12z M-7 3 0-5 7 3" fill="#0F2622"/>
+            <text x="0" y="30" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#F7F2E4">Chalé Suíço</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stay">
+  <div class="wrap stay-grid">
+    <div class="stay-copy reveal">
+      <p class="eyebrow">Day use</p>
+      <h3>Diária na ilha</h3>
+      <p class="lead">A ilha inteira para curtir o dia com o grupo, com cozinha equipada e área de churrasco com sinuca.</p>
+      <div class="spec-row">
+        <div><span>CAPACIDADE</span><b>12 pessoas</b></div>
+        <div><span>ENTRADA</span><b>09h</b></div>
+        <div><span>SAÍDA</span><b>17h</b></div>
+        <div><span>VALOR</span><b>R$400</b></div>
+      </div>
+      <div class="amenity-tags">
+        <span>Pratos, talheres e copos</span>
+        <span>Panelas inclusas</span>
+        <span>Churrasqueira</span>
+        <span>Sinuca</span>
+        <span>Pessoa extra: R$20</span>
+      </div>
+      <a href="https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20a%20di%C3%A1ria%20no%20Recanto%20do%20Sossego" class="btn btn-dark">Reservar a diária</a>
+    </div>
+    <div class="reveal">
+      <div class="photo-set">
+        <div class="ph big ph-c1"><span>Área de churrasco e sinuca</span></div>
+        <div class="ph ph-c2"><span>Cozinha equipada</span></div>
+        <div class="ph ph-c3"><span>Vista da ilha</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stay">
+  <div class="wrap stay-grid reverse">
+    <div class="stay-copy reveal">
+      <p class="eyebrow">Pernoite</p>
+      <h3>Chalé Família</h3>
+      <p class="lead">Casa com sala e banheiro, cama de casal, cama de solteiro e dois colchões extras — espaço de sobra para a família inteira dormir na ilha.</p>
+      <div class="spec-row">
+        <div><span>CAPACIDADE</span><b>6 pessoas</b></div>
+        <div><span>ENTRADA</span><b>18h</b></div>
+        <div><span>SAÍDA</span><b>17h (dia seguinte)</b></div>
+        <div><span>VALOR</span><b>R$800</b></div>
+      </div>
+      <div class="amenity-tags">
+        <span>1 quarto de casal</span>
+        <span>1 cama de solteiro</span>
+        <span>2 colchões de solteiro</span>
+        <span>Central de ar</span>
+        <span>Espaço para rede</span>
+      </div>
+      <a href="https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20o%20Chal%C3%A9%20Fam%C3%ADlia" class="btn btn-dark">Reservar o Chalé Família</a>
+    </div>
+    <div class="reveal">
+      <div class="photo-set">
+        <div class="ph big ph-a1"><span>Sala e área de estar</span></div>
+        <div class="ph ph-a2"><span>Quarto de casal</span></div>
+        <div class="ph ph-a3"><span>Espaço para rede</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stay">
+  <div class="wrap stay-grid">
+    <div class="stay-copy reveal">
+      <p class="eyebrow">Pernoite</p>
+      <h3>Chalé Suíço</h3>
+      <p class="lead">Chalé mais reservado, com sala, banheiro, cama de casal e jacuzzi — pensado para uma estadia mais tranquila a dois ou em pequeno grupo.</p>
+      <div class="spec-row">
+        <div><span>CAPACIDADE</span><b>4 pessoas</b></div>
+        <div><span>ENTRADA</span><b>18h</b></div>
+        <div><span>SAÍDA</span><b>17h (dia seguinte)</b></div>
+        <div><span>VALOR</span><b>R$800</b></div>
+      </div>
+      <div class="amenity-tags">
+        <span>1 cama de casal</span>
+        <span>Jacuzzi</span>
+        <span>Sala e banheiro</span>
+        <span>Central de ar</span>
+      </div>
+      <a href="https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20o%20Chal%C3%A9%20Su%C3%AD%C3%A7o" class="btn btn-dark">Reservar o Chalé Suíço</a>
+    </div>
+    <div class="reveal">
+      <div class="photo-set">
+        <div class="ph big ph-b1"><span>Fachada do chalé</span></div>
+        <div class="ph ph-b2"><span>Frente do chalé</span></div>
+        <div class="ph ph-b3"><span>Interior em madeira</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="experiences" id="experiencias">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow on-dark">Estrutura da ilha</p>
+      <h2>O que está disponível durante a estadia.</h2>
+      <p>Itens de uso comum, para quem está na diária ou pernoitando em qualquer um dos chalés.</p>
+    </div>
+    <div class="exp-grid reveal">
+      <div class="exp-item">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D1A24A" stroke-width="1.7"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M4 10h16"/></svg></div>
+        <h4>Geladeira e freezer</h4>
+        <p>Espaço para guardar bebidas e alimentos durante toda a estadia.</p>
+      </div>
+      <div class="exp-item">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D1A24A" stroke-width="1.7"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="8" cy="12" r="2"/></svg></div>
+        <h4>Micro-ondas e liquidificador</h4>
+        <p>Disponíveis para preparo rápido durante o dia ou a noite na ilha.</p>
+      </div>
+      <div class="exp-item">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D1A24A" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <h4>Fogão completo</h4>
+        <p>Para quem prefere preparar as próprias refeições na ilha.</p>
+      </div>
+      <div class="exp-item">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D1A24A" stroke-width="1.7"><path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6"/></svg></div>
+        <h4>Churrasqueira e mesa</h4>
+        <p>Área própria para as refeições em grupo.</p>
+      </div>
+      <div class="exp-item">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D1A24A" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="9" r="1.3" fill="#D1A24A"/><circle cx="15" cy="9" r="1.3" fill="#D1A24A"/><circle cx="12" cy="14" r="1.3" fill="#D1A24A"/></svg></div>
+        <h4>Sinuca</h4>
+        <p>Mesa de sinuca disponível na área de churrasco.</p>
+      </div>
+      <div class="exp-item">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D1A24A" stroke-width="1.7"><path d="M6 9a6 6 0 0 1 12 0c0 4-2 5-2 8H8c0-3-2-4-2-8Z"/></svg></div>
+        <h4>Central de ar nos chalés</h4>
+        <p>Presente no Chalé Família e no Chalé Suíço para as noites de pernoite.</p>
+      </div>
+      <div class="exp-item">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D1A24A" stroke-width="1.7"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+        <h4>Louça e panelas inclusas</h4>
+        <p>Pratos, talheres, copos e panelas já disponíveis no local.</p>
+      </div>
+      <div class="exp-item">
+        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D1A24A" stroke-width="1.7"><path d="M12 21s-7-5-9-9a5 5 0 0 1 9-4 5 5 0 0 1 9 4c-2 4-9 9-9 9Z"/></svg></div>
+        <h4>Reserva com 50% de sinal</h4>
+        <p>A data é confirmada com o pagamento da metade do valor combinado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="depoimentos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Quem já ficou na ilha</p>
+      <h2 style="font-size:clamp(1.9rem,3.2vw,2.4rem);margin-top:10px;">Relatos de hóspedes.</h2>
+    </div>
+    <div class="test-grid reveal">
+      <div class="test-card">
+        <p class="quote">"Fomos em 10, família toda, só pra passar o dia. Chegamos 9h e quando vimos já eram 17h e ninguém queria ir embora. A churrasqueira e a sinuca seguraram a criançada inteira."</p>
+        <p class="who">— Marcos Lima, Diária em família</p>
+      </div>
+      <div class="test-card">
+        <p class="quote">"Levei meus pais e meus dois filhos pro Chalé Família. Achei que ia ficar apertado, mas sobrou espaço até pra rede. O ar-condicionado salvou porque tava um calor danado."</p>
+        <p class="who">— Juliana Ferreira, Chalé Família</p>
+      </div>
+      <div class="test-card">
+        <p class="quote">"Fui com meu marido comemorar 10 anos de casados no Chalé Suíço. Chegamos 18h, já achamos tudo arrumado, e a vista do quarto pela manhã foi o melhor presente."</p>
+        <p class="who">— Patrícia Souza, Chalé Suíço</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="booking" id="reservas">
+  <div class="wrap booking-grid">
+    <div class="booking-info reveal">
+      <p class="eyebrow">Reservas</p>
+      <h2>Vamos combinar sua estadia.</h2>
+      <p>Preencha as datas e a opção desejada, ou fale direto pelo WhatsApp. A reserva é confirmada com o pagamento de 50% do valor.</p>
+      <div class="contact-line">
+        <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B241E" stroke-width="1.8"><path d="M3 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 6 6l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 3 5Z"/></svg></span>
+        WhatsApp: (94) 98156-1644
+      </div>
+      <div class="contact-line">
+        <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B241E" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#1B241E"/></svg></span>
+        Instagram: @recanto_do_sossego.tucuruí
+      </div>
+      <div class="contact-line">
+        <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B241E" stroke-width="1.8"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        Ilha particular — Tucuruí
+      </div>
+    </div>
+
+    <form class="book-form reveal" id="bookForm">
+      <div class="form-row">
+        <div class="field">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+        </div>
+        <div class="field">
+          <label for="telefone">WhatsApp</label>
+          <input type="tel" id="telefone" name="telefone" placeholder="(99) 99999-9999" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="checkin">Data</label>
+          <input type="date" id="checkin" name="checkin" required>
+        </div>
+        <div class="field">
+          <label for="pessoas">Nº de pessoas</label>
+          <input type="number" id="pessoas" name="pessoas" min="1" placeholder="Ex: 8" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field" style="grid-column:1/-1;">
+          <label for="acomodacao">Opção desejada</label>
+          <select id="acomodacao" name="acomodacao">
+            <option>Diária (dia todo, até 12 pessoas)</option>
+            <option>Chalé Família (pernoite, até 6 pessoas)</option>
+            <option>Chalé Suíço (pernoite, até 4 pessoas)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:6px;">
+        <label for="mensagem">Mensagem (opcional)</label>
+        <textarea id="mensagem" name="mensagem" placeholder="Ocasião, dúvidas..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar pelo WhatsApp</button>
+      <p class="form-note">Ao enviar, você será direcionado ao WhatsApp com os dados preenchidos.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-logo">
+        <svg width="20" height="20" viewBox="0 0 26 26" fill="none"><path d="M2 18c4-9 8-13 11-13s7 4 11 13c-3-2-6-3-11-3s-8 1-11 3Z" fill="#D1A24A"/></svg>
+        Recanto do Sossego
+      </div>
+      <div class="footer-links">
+        <a href="#ilha">A ilha</a>
+        <a href="#escolha">Acomodações</a>
+        <a href="#experiencias">Estrutura</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#reservas">Reservas</a>
+        <a href="https://instagram.com/recanto_do_sossego.tucurui" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Recanto do Sossego. Todos os direitos reservados.</span>
+      <span>Ilha particular · Tucuruí</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20Recanto%20do%20Sossego" aria-label="Falar no WhatsApp" target="_blank" rel="noopener">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8 1-.2.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.4 3.8 3.4.5.2.9.4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3Z"/></svg>
+</a>
+
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ navLinks.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); });
+  });
+
+  var stayData = {
+    diaria: {
+      tag: 'DIÁRIA · DIA TODO',
+      title: 'A ilha inteira por um dia',
+      cap: 'Até 12 pessoas',
+      rooms: '09h às 17h',
+      price: 'R$ 400',
+      desc: 'Acesso à ilha e à cozinha equipada (pratos, talheres, copos e panelas). Pessoa além da capacidade combinada: R$20 por pessoa.',
+      wa: 'https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20a%20di%C3%A1ria%20no%20Recanto%20do%20Sossego',
+      pins: ['pinFamilia','pinSuico']
+    },
+    familia: {
+      tag: 'CHALÉ FAMÍLIA',
+      title: 'Casa com sala, banheiro e espaço para todos',
+      cap: 'Até 6 pessoas',
+      rooms: '18h às 17h (dia seguinte)',
+      price: 'R$ 800',
+      desc: '1 quarto de casal, 1 cama de solteiro e 2 colchões de solteiro. Central de ar e espaço para rede.',
+      wa: 'https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20o%20Chal%C3%A9%20Fam%C3%ADlia',
+      pins: ['pinFamilia']
+    },
+    suico: {
+      tag: 'CHALÉ SUÍÇO',
+      title: 'Chalé com jacuzzi, mais reservado',
+      cap: 'Até 4 pessoas',
+      rooms: '18h às 17h (dia seguinte)',
+      price: 'R$ 800',
+      desc: '1 cama de casal, sala, banheiro, jacuzzi e central de ar.',
+      wa: 'https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20o%20Chal%C3%A9%20Su%C3%AD%C3%A7o',
+      pins: ['pinSuico']
+    }
+  };
+
+  var buttons = document.querySelectorAll('.toggle-btn');
+  var allPins = document.querySelectorAll('.pin');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var d = stayData[btn.dataset.target];
+      document.getElementById('infoTag').textContent = d.tag;
+      document.getElementById('infoTitle').textContent = d.title;
+      document.getElementById('infoCap').textContent = d.cap;
+      document.getElementById('infoRooms').textContent = d.rooms;
+      document.getElementById('infoPrice').textContent = d.price;
+      document.getElementById('infoDesc').textContent = d.desc;
+      document.getElementById('infoCta').href = d.wa;
+      allPins.forEach(function(p){
+        p.classList.toggle('dim', d.pins.indexOf(p.id) === -1);
+      });
+    });
+  });
+
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, {threshold:0.12});
+    revealEls.forEach(function(el){ obs.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  document.getElementById('bookForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var nome = document.getElementById('nome').value;
+    var tel = document.getElementById('telefone').value;
+    var data = document.getElementById('checkin').value;
+    var pessoas = document.getElementById('pessoas').value;
+    var acomodacao = document.getElementById('acomodacao').value;
+    var mensagem = document.getElementById('mensagem').value;
+    var texto = 'Olá! Gostaria de reservar no Recanto do Sossego.%0A' +
+      'Nome: ' + encodeURIComponent(nome) + '%0A' +
+      'WhatsApp: ' + encodeURIComponent(tel) + '%0A' +
+      'Data: ' + encodeURIComponent(data) + '%0A' +
+      'Número de pessoas: ' + encodeURIComponent(pessoas) + '%0A' +
+      'Opção: ' + encodeURIComponent(acomodacao) +
+      (mensagem ? ('%0AMensagem: ' + encodeURIComponent(mensagem)) : '');
+    window.open('https://wa.me/5594981561644?text=' + texto, '_blank');
+  });
+</script>
+
+</body>
+</html>
