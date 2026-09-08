@@ -7,7 +7,7 @@
 <meta name="description" content="Ilha particular no Lago de Tucuruí. Diária para até 12 pessoas ou pernoite no Chalé Família e no Chalé Suíço. Reserve pelo WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Rye&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#0F2622;
@@ -618,6 +618,64 @@
   .footer-logo,.footer-links a:hover{color:var(--text-light);}
   .footer-links a,.footer-bottom{color:var(--text-light-dim);}
   @media (max-width:920px){.nav-links{background:var(--ink);border-top-color:var(--gold);}}
+
+  /* Final identity layer: quiet damask geometry, brass rules and a display face
+     reserved for the moments that carry the brand. */
+  :root{--display:'Rye','Fraunces',Georgia,serif;}
+  body:after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.16;
+    background:
+      radial-gradient(ellipse 42px 18px at 25px 25px, transparent 48%, rgba(212,162,76,.22) 50%, transparent 54%),
+      radial-gradient(ellipse 42px 18px at 67px 25px, transparent 48%, rgba(212,162,76,.22) 50%, transparent 54%),
+      radial-gradient(circle at 46px 46px, transparent 0 13px, rgba(212,162,76,.18) 14px 15px, transparent 16px),
+      repeating-linear-gradient(45deg, transparent 0 45px, rgba(212,162,76,.07) 46px 47px, transparent 48px 91px);
+    background-size:92px 92px;
+    mix-blend-mode:screen;
+  }
+  body > *{position:relative;z-index:1;}
+  .wa-float{z-index:200;}
+  h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.015em;}
+  .logo,.footer-logo{font-family:var(--display);font-weight:400;letter-spacing:.02em;}
+  .hero h1{font-size:clamp(2.25rem,4.4vw,3.65rem);text-shadow:0 2px 0 rgba(0,0,0,.3);}
+  .section-head h2,.booking-info h2,.availability-info h2{line-height:1.16;}
+  .section-head:after{content:"✦  ───  ✦";letter-spacing:.18em;font-size:14px;}
+  .hero,.selector,.experiences,footer{
+    background-image:
+      radial-gradient(ellipse 56px 24px at 30px 30px, transparent 47%, rgba(212,162,76,.075) 49%, transparent 53%),
+      radial-gradient(ellipse 56px 24px at 86px 30px, transparent 47%, rgba(212,162,76,.075) 49%, transparent 53%),
+      radial-gradient(circle at 58px 58px, transparent 0 16px, rgba(212,162,76,.06) 17px 18px, transparent 19px),
+      linear-gradient(135deg,#34251b 0%,#1b1511 60%,#463122 100%);
+    background-size:112px 112px,112px 112px,112px 112px,auto;
+  }
+  .selector,.experiences,footer{
+    background-image:
+      radial-gradient(ellipse 56px 24px at 30px 30px, transparent 47%, rgba(212,162,76,.07) 49%, transparent 53%),
+      radial-gradient(ellipse 56px 24px at 86px 30px, transparent 47%, rgba(212,162,76,.07) 49%, transparent 53%),
+      radial-gradient(circle at 58px 58px, transparent 0 16px, rgba(212,162,76,.055) 17px 18px, transparent 19px),
+      var(--ink);
+  }
+  .lantern-ornament{
+    position:absolute;width:54px;height:78px;right:7%;top:48px;
+    border:2px solid rgba(212,162,76,.68);border-radius:8px 8px 13px 13px;
+    background:radial-gradient(circle at 50% 55%,#f3c45e 0 8%,#a86c25 25%,rgba(52,37,27,.92) 62%);
+    box-shadow:0 0 22px rgba(212,162,76,.23), inset 0 0 0 5px rgba(27,21,17,.8);
+    transform:perspective(80px) rotateY(-8deg);
+  }
+  .lantern-ornament:before{
+    content:"";position:absolute;left:9px;right:9px;top:-12px;height:10px;
+    border:2px solid rgba(212,162,76,.68);border-bottom:0;border-radius:50% 50% 0 0;
+  }
+  .lantern-ornament:after{
+    content:"";position:absolute;left:50%;bottom:-30px;width:2px;height:28px;
+    background:rgba(212,162,76,.62);box-shadow:-15px 25px 0 -0.5px rgba(212,162,76,.62);
+  }
+  .hero .lantern-ornament{top:34px;}
+  .booking .lantern-ornament{top:26px;right:4%;transform:scale(.78);}
+  @media (max-width:600px){
+    body:after{opacity:.1;}
+    .hero .lantern-ornament{right:18px;top:26px;transform:scale(.68);}
+    .booking .lantern-ornament{right:14px;top:16px;transform:scale(.58);}
+  }
 </style>
 </head>
 <body>
@@ -642,6 +700,7 @@
 </header>
 
 <section class="hero" id="topo">
+  <span class="lantern-ornament" aria-hidden="true"></span>
   <div class="hero-inner">
     <div>
       <p class="eyebrow on-dark">Ilha particular · Tucuruí</p>
@@ -959,6 +1018,7 @@
 </section>
 
 <section class="booking" id="reservas">
+  <span class="lantern-ornament" aria-hidden="true"></span>
   <div class="wrap booking-grid">
     <div class="booking-info reveal">
       <p class="eyebrow">Reservas</p>
