@@ -281,49 +281,12 @@
   .availability-info h2{font-size:clamp(1.8rem,3vw,2.3rem);margin-top:10px;margin-bottom:18px;}
   .availability-info > p:not(.eyebrow){color:var(--text-dim);font-size:16px;margin-bottom:24px;}
   .availability-note{font-size:13px;color:var(--text-dim);border-left:3px solid var(--gold);padding-left:14px;}
-  .calendar-panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;}
-  .calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px;}
-  .calendar-toolbar h3{font-size:1.35rem;text-transform:capitalize;text-align:center;}
-  .calendar-nav{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:var(--sand);color:var(--ink);font-size:20px;line-height:1;cursor:pointer;}
-  .calendar-nav:hover{background:var(--sand-2);}
-  .calendar-weekdays,.calendar-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
-  .calendar-weekdays{margin-bottom:6px;}
-  .calendar-weekdays span{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);text-transform:uppercase;}
-  .calendar-day{min-height:42px;border:1px solid transparent;border-radius:8px;background:var(--sand);color:var(--text-dark);font:500 14px 'Inter',sans-serif;cursor:pointer;}
-  .calendar-day:hover:not(:disabled){border-color:var(--wood);background:#fff;}
-  .calendar-day.other-month{visibility:hidden;pointer-events:none;}
-  .calendar-day.today{border-color:var(--wood);font-weight:600;}
-  .calendar-day.unavailable{background:#ead8d0;color:#8a5140;text-decoration:line-through;cursor:not-allowed;}
-  .calendar-day.selected{background:var(--gold);border-color:var(--wood-dark);color:var(--ink);font-weight:600;}
-  .calendar-day:disabled{opacity:1;}
-  .calendar-selection{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-  .calendar-selection p{font-size:14px;color:var(--text-dim);}
-  .calendar-selection strong{color:var(--text-dark);}
-  .calendar-selection .btn{padding:11px 18px;}
-  .calendar-selection .btn:disabled{background:var(--line);color:var(--text-dim);cursor:not-allowed;transform:none;}
-  .calendar-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--sand);font-size:12.5px;color:var(--text-dark);}
-  .calendar-legend span{display:inline-flex;align-items:center;gap:7px;}
-  .legend-dot{width:12px;height:12px;border-radius:4px;background:var(--sand);border:1px solid var(--line);}
-  .legend-dot.unavailable{background:#ead8d0;border-color:#d5b7aa;}
-  .legend-dot.today{background:#fff;border-color:var(--wood);}
-  .availability-summary{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;}
-  .availability-list{min-width:0;padding:18px;background:var(--sand);border:1px solid var(--line);border-radius:var(--radius);}
-  .availability-list h4{font-size:1.1rem;line-height:1.2;margin-bottom:10px;}
-  .availability-list.available h4{color:var(--ink-3);}
-  .availability-list.rented h4{color:#8a5140;}
-  .availability-list p{font-size:13px;color:var(--text-dim);line-height:1.45;}
-  .availability-list ul{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none;}
-  .availability-list li{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dark);}
-  .availability-list li::before{content:'•';color:var(--moss);margin-right:7px;}
-  .availability-list.rented li::before{color:#b06a34;}
-  @media (max-width:560px){ .availability-summary{grid-template-columns:1fr;} }
+  .google-calendar-panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;}
+  .google-calendar-frame{display:block;width:100%;height:620px;border:0;border-radius:10px;background:var(--sand);}
   @media (max-width:900px){ .availability-grid{grid-template-columns:1fr;gap:36px;} }
   @media (max-width:600px){
-    .calendar-panel{padding:18px 14px;}
-    .calendar-weekdays,.calendar-days{gap:4px;}
-    .calendar-day{min-height:38px;font-size:13px;}
-    .calendar-selection{align-items:stretch;flex-direction:column;}
-    .calendar-selection .btn{justify-content:center;}
+    .google-calendar-panel{padding:8px;}
+    .google-calendar-frame{height:560px;}
   }
 
   form.book-form{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px;}
@@ -730,40 +693,17 @@
     <div class="availability-info reveal">
       <p class="eyebrow">Calendário de reservas</p>
       <h2>Consulte a disponibilidade da ilha.</h2>
-      <p>Escolha uma data disponível no calendário para iniciar uma conversa pelo WhatsApp. A disponibilidade é atualizada manualmente.</p>
-      <p class="availability-note">A data só fica confirmada após a confirmação pelo WhatsApp e o pagamento do sinal de 50%.</p>
+      <p>Consulte a agenda pública abaixo para ver a disponibilidade e, em seguida, fale pelo WhatsApp para combinar sua reserva.</p>
+      <p class="availability-note">Eventos marcados como ocupado ou alugado aparecem aqui no Google Agenda. A data só fica confirmada após a confirmação pelo WhatsApp e o pagamento do sinal de 50%.</p>
     </div>
-    <div class="calendar-panel reveal" aria-labelledby="calendarTitle">
-      <div class="calendar-toolbar">
-        <button type="button" class="calendar-nav" id="previousMonth" aria-label="Mês anterior">‹</button>
-        <h3 id="calendarTitle" aria-live="polite"></h3>
-        <button type="button" class="calendar-nav" id="nextMonth" aria-label="Próximo mês">›</button>
-      </div>
-      <div class="calendar-weekdays" aria-hidden="true">
-        <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
-      </div>
-      <div class="calendar-days" id="calendarDays" role="grid" aria-label="Dias do mês"></div>
-      <div class="calendar-selection">
-        <p id="calendarSelection" aria-live="polite">Selecione uma data disponível.</p>
-        <button type="button" class="btn btn-dark" id="calendarWhatsapp" disabled>Tenho interesse nesta data</button>
-      </div>
-      <div class="calendar-legend" aria-label="Legenda do calendário">
-        <span><i class="legend-dot"></i>Disponível</span>
-        <span><i class="legend-dot unavailable"></i>Indisponível</span>
-        <span><i class="legend-dot today"></i>Hoje</span>
-      </div>
-      <div class="availability-summary" aria-label="Resumo da disponibilidade">
-        <div class="availability-list available">
-          <h4>Próximas datas disponíveis</h4>
-          <ul id="availableDatesList"></ul>
-          <p id="availableDatesEmpty" hidden>Não há datas disponíveis neste horizonte.</p>
-        </div>
-        <div class="availability-list rented">
-          <h4>Datas já alugadas</h4>
-          <ul id="rentedDatesList"></ul>
-          <p id="rentedDatesEmpty" hidden>Nenhuma data alugada cadastrada.</p>
-        </div>
-      </div>
+    <div class="google-calendar-panel reveal">
+      <iframe
+        class="google-calendar-frame"
+        src="https://calendar.google.com/calendar/embed?src=309ade9426dd527946feb6022852099ce183e74bca654aa1ac507f8a82670532%40group.calendar.google.com&amp;ctz=America%2FSao_Paulo"
+        title="Agenda pública de disponibilidade do Recanto do Sossego"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
   </div>
 </section>
@@ -858,154 +798,6 @@
 </a>
 
 <script>
-  /*
-   * Atualize esta lista manualmente quando uma data for ocupada.
-   * Datas avulsas usam "AAAA-MM-DD"; intervalos usam { start: "AAAA-MM-DD", end: "AAAA-MM-DD" }.
-   * Exemplo: ['2026-12-25', { start: '2026-12-30', end: '2027-01-02' }]
-   */
-  var unavailableDates = [];
-  var calendarDate = new Date();
-  calendarDate.setDate(1);
-  var selectedCalendarDate = '';
-  var monthNames = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-
-  function formatDateKey(date){
-    return date.getFullYear() + '-' +
-      String(date.getMonth() + 1).padStart(2, '0') + '-' +
-      String(date.getDate()).padStart(2, '0');
-  }
-
-  function formatDateForDisplay(dateKey){
-    var parts = dateKey.split('-');
-    return parts[2] + '/' + parts[1] + '/' + parts[0];
-  }
-
-  function isDateUnavailable(dateKey){
-    var todayKey = formatDateKey(new Date());
-    if(dateKey < todayKey){ return true; }
-    return unavailableDates.some(function(entry){
-      if(typeof entry === 'string'){ return entry === dateKey; }
-      return entry && dateKey >= entry.start && dateKey <= entry.end;
-    });
-  }
-
-  function getUnavailableDateKeys(){
-    var dateKeys = [];
-    unavailableDates.forEach(function(entry){
-      if(typeof entry === 'string'){
-        dateKeys.push(entry);
-        return;
-      }
-      if(!entry || !entry.start || !entry.end){ return; }
-      var current = new Date(entry.start + 'T00:00:00');
-      var end = new Date(entry.end + 'T00:00:00');
-      while(current <= end){
-        dateKeys.push(formatDateKey(current));
-        current.setDate(current.getDate() + 1);
-      }
-    });
-    return dateKeys.filter(function(dateKey, index, allKeys){
-      return allKeys.indexOf(dateKey) === index;
-    }).sort();
-  }
-
-  function appendDateListItem(list, dateKey){
-    var item = document.createElement('li');
-    item.textContent = formatDateForDisplay(dateKey);
-    list.appendChild(item);
-  }
-
-  function renderAvailabilitySummary(){
-    var availableList = document.getElementById('availableDatesList');
-    var availableEmpty = document.getElementById('availableDatesEmpty');
-    var rentedList = document.getElementById('rentedDatesList');
-    var rentedEmpty = document.getElementById('rentedDatesEmpty');
-    var visibleMonthStart = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1);
-    var today = new Date();
-    today.setHours(0, 0, 0, 0);
-    var searchDate = visibleMonthStart > today ? visibleMonthStart : today;
-    var availableDates = [];
-    var horizonDays = 62;
-    var rentedDates = getUnavailableDateKeys();
-
-    availableList.innerHTML = '';
-    rentedList.innerHTML = '';
-    for(var offset = 0; offset < horizonDays && availableDates.length < 8; offset++){
-      var candidate = new Date(searchDate);
-      candidate.setDate(searchDate.getDate() + offset);
-      var candidateKey = formatDateKey(candidate);
-      if(!isDateUnavailable(candidateKey)){ availableDates.push(candidateKey); }
-    }
-    availableDates.forEach(function(dateKey){ appendDateListItem(availableList, dateKey); });
-    rentedDates.forEach(function(dateKey){ appendDateListItem(rentedList, dateKey); });
-    availableEmpty.hidden = availableDates.length > 0;
-    rentedEmpty.hidden = rentedDates.length > 0;
-  }
-
-  function renderCalendar(){
-    var year = calendarDate.getFullYear();
-    var month = calendarDate.getMonth();
-    var firstDay = new Date(year, month, 1).getDay();
-    var daysInMonth = new Date(year, month + 1, 0).getDate();
-    var todayKey = formatDateKey(new Date());
-    var calendarDays = document.getElementById('calendarDays');
-    document.getElementById('calendarTitle').textContent = monthNames[month] + ' de ' + year;
-    calendarDays.innerHTML = '';
-
-    for(var blank = 0; blank < firstDay; blank++){
-      var emptyDay = document.createElement('span');
-      emptyDay.className = 'calendar-day other-month';
-      emptyDay.setAttribute('aria-hidden', 'true');
-      calendarDays.appendChild(emptyDay);
-    }
-
-    for(var day = 1; day <= daysInMonth; day++){
-      var date = new Date(year, month, day);
-      var dateKey = formatDateKey(date);
-      var unavailable = isDateUnavailable(dateKey);
-      var dayButton = document.createElement('button');
-      dayButton.type = 'button';
-      dayButton.className = 'calendar-day';
-      dayButton.textContent = day;
-      dayButton.setAttribute('role', 'gridcell');
-      dayButton.setAttribute('aria-label', day + ' de ' + monthNames[month] + ' de ' + year + (unavailable ? ', indisponível' : ', disponível'));
-      dayButton.dataset.date = dateKey;
-      if(dateKey === todayKey){ dayButton.classList.add('today'); }
-      if(unavailable){
-        dayButton.classList.add('unavailable');
-        dayButton.disabled = true;
-      } else {
-        dayButton.addEventListener('click', function(){
-          selectedCalendarDate = this.dataset.date;
-          document.querySelectorAll('.calendar-day.selected').forEach(function(selected){
-            selected.classList.remove('selected');
-          });
-          this.classList.add('selected');
-          document.getElementById('calendarSelection').innerHTML = 'Data escolhida: <strong>' + formatDateForDisplay(selectedCalendarDate) + '</strong>';
-          document.getElementById('calendarWhatsapp').disabled = false;
-        });
-      }
-      if(dateKey === selectedCalendarDate){ dayButton.classList.add('selected'); }
-      calendarDays.appendChild(dayButton);
-    }
-    renderAvailabilitySummary();
-  }
-
-  document.getElementById('previousMonth').addEventListener('click', function(){
-    calendarDate.setMonth(calendarDate.getMonth() - 1);
-    renderCalendar();
-  });
-  document.getElementById('nextMonth').addEventListener('click', function(){
-    calendarDate.setMonth(calendarDate.getMonth() + 1);
-    renderCalendar();
-  });
-  document.getElementById('calendarWhatsapp').addEventListener('click', function(){
-    if(!selectedCalendarDate || isDateUnavailable(selectedCalendarDate)){ return; }
-    var text = 'Olá! Tenho interesse em reservar o Recanto do Sossego no dia ' + formatDateForDisplay(selectedCalendarDate) + '. Gostaria de confirmar a disponibilidade e receber as informações para pagamento.';
-    window.open('https://wa.me/5594981561644?text=' + encodeURIComponent(text), '_blank', 'noopener');
-  });
-  renderCalendar();
-
   var navToggle = document.getElementById('navToggle');
   var navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', function(){
