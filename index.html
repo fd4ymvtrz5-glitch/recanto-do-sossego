@@ -710,8 +710,8 @@
     <div class="availability-info reveal">
       <p class="eyebrow">Calendário de reservas</p>
       <h2>Consulte a disponibilidade da ilha.</h2>
-      <p>Consulte a agenda pública abaixo, escolha uma data livre e avance para a reserva de teste. A confirmação continua sendo feita pelo WhatsApp.</p>
-      <p class="availability-note">Eventos marcados como ocupado ou alugado aparecem aqui no Google Agenda. A data só fica confirmada após a confirmação pelo WhatsApp e um futuro pagamento processado com segurança.</p>
+      <p>Consulte a agenda pública abaixo, escolha uma data livre e avance para a reserva online. A data só é bloqueada depois que o pagamento do sinal for aprovado.</p>
+      <p class="availability-note">Reservas em checkout ficam em análise por alguns minutos. Somente um pagamento aprovado confirma a data e cria o evento no Google Calendar.</p>
       <div class="availability-picker">
         <label for="availabilityDate">Data desejada</label>
         <div class="availability-picker-row">
@@ -738,7 +738,7 @@
     <div class="booking-info reveal">
       <p class="eyebrow">Reservas</p>
       <h2>Vamos combinar sua estadia.</h2>
-      <p>Preencha os dados para visualizar o checkout de teste, ou fale direto pelo WhatsApp. Nenhum pagamento real é processado nesta versão.</p>
+      <p>Preencha os dados para pagar o sinal de 50% com segurança pelo Mercado Pago, ou fale direto pelo WhatsApp.</p>
       <div class="contact-line">
         <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B241E" stroke-width="1.8"><path d="M3 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 6 6l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 3 5Z"/></svg></span>
         WhatsApp: (94) 98156-1644
@@ -759,6 +759,12 @@
           <label for="nome">Nome</label>
           <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
         </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="voce@exemplo.com" required>
+        </div>
+      </div>
+      <div class="form-row">
         <div class="field">
           <label for="telefone">WhatsApp</label>
           <input type="tel" id="telefone" name="telefone" placeholder="(99) 99999-9999" required>
@@ -789,17 +795,14 @@
         <textarea id="mensagem" name="mensagem" placeholder="Ocasião, dúvidas..."></textarea>
       </div>
       <div class="price-summary" aria-live="polite">
-        <h3>Resumo do checkout de teste</h3>
-        <div class="price-line"><span>Valor total configurado</span><strong id="summaryTotal">R$ 400,00</strong></div>
-        <div class="field deposit-field">
-          <label for="depositAmount">Sinal de 50% (editável para simulação)</label>
-          <input type="number" id="depositAmount" name="depositAmount" min="0" step="0.01" inputmode="decimal" value="200">
-        </div>
+        <h3>Resumo da reserva</h3>
+        <div class="price-line"><span>Valor total</span><strong id="summaryTotal">R$ 400,00</strong></div>
+        <div class="price-line"><span>Sinal de 50% para confirmar</span><strong id="summaryDeposit">R$ 200,00</strong></div>
       </div>
-      <button type="submit" class="btn test-checkout">Continuar para checkout de teste</button>
+      <button type="submit" class="btn test-checkout">Pagar sinal no Mercado Pago</button>
       <div class="test-status" id="testStatus" role="status" hidden></div>
       <button type="button" class="btn btn-dark whatsapp-fallback" id="whatsappFallback">Continuar pelo WhatsApp</button>
-      <p class="form-note">Modo TESTE: nenhum pagamento é realizado e nenhuma data é bloqueada no Google Calendar.</p>
+      <p class="form-note">A data só será bloqueada após a aprovação do pagamento. Se preferir, use o WhatsApp para combinar sua estadia.</p>
     </form>
   </div>
 </section>
@@ -833,21 +836,12 @@
 </a>
 
 <script>
-  /*
-   * CONFIGURAÇÃO SEGURA — modo TESTE apenas.
-   * Os preços e o percentual de sinal ficam no frontend apenas para exibição
-   * e simulação. Nunca coloque aqui access tokens, secret keys ou credenciais.
-   * Produção: criar um backend para gerar a preferência Mercado Pago, receber
-   * o webhook e só então confirmar/bloquear a data no Google Calendar.
-   */
   var reservationConfig = {
-    mode: 'test',
+    mode: 'production',
     depositPercentage: 0.5,
-    mercadoPago: {
-      publicKey: '',
-      backendPreferenceEndpoint: '',
-      webhookEndpoint: ''
-    },
+    checkoutEndpoint: 'https://YOUR_PROJECT_REF.supabase.co/functions/v1/create-checkout',
+    availabilityEndpoint: 'https://YOUR_PROJECT_REF.supabase.co/functions/v1/availability',
+    supabaseAnonKey: '',
     options: {
       diaria: { label: 'Diária', total: 400 },
       familia: { label: 'Chalé Família', total: 800 },
@@ -925,7 +919,7 @@
   var checkinInput = document.getElementById('checkin');
   var availabilityDate = document.getElementById('availabilityDate');
   var accommodationInput = document.getElementById('acomodacao');
-  var depositInput = document.getElementById('depositAmount');
+  var summaryDeposit = document.getElementById('summaryDeposit');
   var summaryTotal = document.getElementById('summaryTotal');
   var testStatus = document.getElementById('testStatus');
   var today = new Date();
@@ -939,7 +933,7 @@
     var option = reservationConfig.options[accommodationInput.value];
     var deposit = option.total * reservationConfig.depositPercentage;
     summaryTotal.textContent = formatCurrency(option.total);
-    if(!depositInput.dataset.edited){ depositInput.value = deposit.toFixed(2); }
+    summaryDeposit.textContent = formatCurrency(deposit);
   }
 
   function syncSelectedDate(){
@@ -950,12 +944,13 @@
     var option = reservationConfig.options[accommodationInput.value];
     return {
       nome: document.getElementById('nome').value,
+      email: document.getElementById('email').value,
       tel: document.getElementById('telefone').value,
       data: checkinInput.value,
       pessoas: document.getElementById('pessoas').value,
       acomodacao: option.label,
       total: option.total,
-      deposito: Number(depositInput.value || 0),
+      deposito: option.total * reservationConfig.depositPercentage,
       mensagem: document.getElementById('mensagem').value
     };
   }
@@ -964,12 +959,13 @@
     var data = getReservationData();
     var texto = 'Olá! Gostaria de reservar no Recanto do Sossego.%0A' +
       'Nome: ' + encodeURIComponent(data.nome) + '%0A' +
+      'E-mail: ' + encodeURIComponent(data.email) + '%0A' +
       'WhatsApp: ' + encodeURIComponent(data.tel) + '%0A' +
       'Data: ' + encodeURIComponent(data.data) + '%0A' +
       'Número de pessoas: ' + encodeURIComponent(data.pessoas) + '%0A' +
       'Opção: ' + encodeURIComponent(data.acomodacao) + '%0A' +
       'Valor configurado: ' + encodeURIComponent(formatCurrency(data.total)) + '%0A' +
-      'Sinal sugerido para simulação: ' + encodeURIComponent(formatCurrency(data.deposito)) +
+      'Sinal de 50%: ' + encodeURIComponent(formatCurrency(data.deposito)) +
       (data.mensagem ? ('%0AMensagem: ' + encodeURIComponent(data.mensagem)) : '');
     window.open('https://wa.me/5594981561644?text=' + texto, '_blank');
   }
@@ -984,10 +980,8 @@
     document.getElementById('reservas').scrollIntoView({behavior:'smooth'});
   });
   accommodationInput.addEventListener('change', function(){
-    delete depositInput.dataset.edited;
     updatePriceSummary();
   });
-  depositInput.addEventListener('input', function(){ depositInput.dataset.edited = 'true'; });
   updatePriceSummary();
 
   var revealEls = document.querySelectorAll('.reveal');
@@ -1005,11 +999,33 @@
   document.getElementById('bookForm').addEventListener('submit', function(e){
     e.preventDefault();
     var data = getReservationData();
-    testStatus.textContent = 'CHECKOUT DE TESTE: dados preparados para ' + data.acomodacao +
-      ' em ' + data.data + '. Total: ' + formatCurrency(data.total) +
-      '. Sinal informado: ' + formatCurrency(data.deposito) +
-      '. Nenhum pagamento foi realizado, a reserva não foi confirmada e a data não foi bloqueada no Google Calendar.';
-    testStatus.hidden = false;
+    var button = e.target.querySelector('button[type="submit"]');
+    if(!reservationConfig.supabaseAnonKey || reservationConfig.checkoutEndpoint.indexOf('YOUR_PROJECT_REF') !== -1){
+      testStatus.textContent = 'Checkout ainda não configurado. Use o WhatsApp ou informe a URL e a chave pública do seu projeto Supabase no deploy.';
+      testStatus.hidden = false;
+      return;
+    }
+    button.disabled = true;
+    testStatus.hidden = true;
+    var idempotencyKey = window.crypto && window.crypto.randomUUID ? window.crypto.randomUUID() : String(Date.now()) + '-' + Math.random();
+    fetch(reservationConfig.checkoutEndpoint, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json', 'apikey': reservationConfig.supabaseAnonKey, 'x-client-info':'recanto-site', 'x-idempotency-key': idempotencyKey},
+      body: JSON.stringify({
+        selectedDate: data.data, reservationOption: accommodationInput.value,
+        customerName: data.nome, customerEmail: data.email, customerPhone: data.tel,
+        guestCount: Number(data.pessoas), message: data.mensagem
+      })
+    }).then(function(response){
+      return response.json().then(function(body){ return {ok: response.ok, body: body}; });
+    }).then(function(result){
+      if(!result.ok || !result.body.checkoutUrl) throw new Error(result.body.error || 'Não foi possível iniciar o checkout.');
+      window.location.assign(result.body.checkoutUrl);
+    }).catch(function(error){
+      testStatus.textContent = error.message || 'Não foi possível iniciar o checkout. Tente novamente ou use o WhatsApp.';
+      testStatus.hidden = false;
+      button.disabled = false;
+    });
   });
   document.getElementById('whatsappFallback').addEventListener('click', openWhatsApp);
 </script>

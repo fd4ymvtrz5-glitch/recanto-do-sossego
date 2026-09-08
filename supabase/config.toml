@@ -1,0 +1,10 @@
+project_id = "recanto-do-sossego"
+
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.availability]
+verify_jwt = false
+
+[functions.mercado-pago-webhook]
+verify_jwt = false
