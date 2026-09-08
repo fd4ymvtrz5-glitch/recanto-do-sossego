@@ -283,6 +283,12 @@
   .availability-note{font-size:13px;color:var(--text-dim);border-left:3px solid var(--gold);padding-left:14px;}
   .google-calendar-panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;}
   .google-calendar-frame{display:block;width:100%;height:620px;border:0;border-radius:10px;background:var(--sand);}
+  .availability-picker{margin-top:18px;padding:18px;background:var(--sand-2);border:1px solid var(--line);border-radius:var(--radius);}
+  .availability-picker label{display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px;}
+  .availability-picker-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .availability-picker input{flex:1 1 180px;min-width:0;border:1px solid var(--line);border-radius:8px;padding:11px 13px;font-size:14.5px;font-family:'Inter',sans-serif;background:#fff;color:var(--text-dark);}
+  .availability-picker .btn{padding:11px 16px;font-size:13.5px;}
+  .availability-picker-note{font-size:12px;color:var(--text-dim);margin-top:9px;}
   @media (max-width:900px){ .availability-grid{grid-template-columns:1fr;gap:36px;} }
   @media (max-width:600px){
     .google-calendar-panel{padding:8px;}
@@ -302,6 +308,17 @@
   .book-form .btn-primary{width:100%;justify-content:center;background:var(--ink);color:var(--text-light);margin-top:6px;}
   .book-form .btn-primary:hover{background:var(--wood-dark);}
   .form-note{font-size:12.5px;color:var(--text-dim);margin-top:12px;text-align:center;}
+  .price-summary{margin:20px 0 16px;padding:18px;background:var(--sand);border:1px solid var(--line);border-radius:10px;}
+  .price-summary h3{font-size:1.15rem;margin-bottom:12px;}
+  .price-line{display:flex;justify-content:space-between;gap:16px;font-size:14px;margin-top:8px;}
+  .price-line strong{font-weight:600;}
+  .deposit-field{margin-top:14px;}
+  .deposit-field input{width:100%;}
+  .test-checkout{width:100%;justify-content:center;background:var(--gold);color:var(--ink);margin-top:6px;}
+  .test-checkout:hover{background:#e0b463;}
+  .test-status{margin-top:14px;padding:14px;border-left:3px solid var(--gold);background:#fff8df;color:var(--text-dark);font-size:13px;}
+  .test-status[hidden]{display:none;}
+  .whatsapp-fallback{width:100%;justify-content:center;margin-top:10px;}
 
   @media (max-width:900px){
     .booking-grid{grid-template-columns:1fr;}
@@ -693,8 +710,16 @@
     <div class="availability-info reveal">
       <p class="eyebrow">Calendário de reservas</p>
       <h2>Consulte a disponibilidade da ilha.</h2>
-      <p>Consulte a agenda pública abaixo para ver a disponibilidade e, em seguida, fale pelo WhatsApp para combinar sua reserva.</p>
-      <p class="availability-note">Eventos marcados como ocupado ou alugado aparecem aqui no Google Agenda. A data só fica confirmada após a confirmação pelo WhatsApp e o pagamento do sinal de 50%.</p>
+      <p>Consulte a agenda pública abaixo, escolha uma data livre e avance para a reserva de teste. A confirmação continua sendo feita pelo WhatsApp.</p>
+      <p class="availability-note">Eventos marcados como ocupado ou alugado aparecem aqui no Google Agenda. A data só fica confirmada após a confirmação pelo WhatsApp e um futuro pagamento processado com segurança.</p>
+      <div class="availability-picker">
+        <label for="availabilityDate">Data desejada</label>
+        <div class="availability-picker-row">
+          <input type="date" id="availabilityDate" aria-describedby="availabilityDateNote">
+          <button type="button" class="btn btn-dark" id="useAvailabilityDate">Usar esta data</button>
+        </div>
+        <p class="availability-picker-note" id="availabilityDateNote">A agenda é apenas informativa: a disponibilidade deve ser confirmada com a equipe.</p>
+      </div>
     </div>
     <div class="google-calendar-panel reveal">
       <iframe
@@ -713,7 +738,7 @@
     <div class="booking-info reveal">
       <p class="eyebrow">Reservas</p>
       <h2>Vamos combinar sua estadia.</h2>
-      <p>Preencha as datas e a opção desejada, ou fale direto pelo WhatsApp. A reserva é confirmada com o pagamento de 50% do valor.</p>
+      <p>Preencha os dados para visualizar o checkout de teste, ou fale direto pelo WhatsApp. Nenhum pagamento real é processado nesta versão.</p>
       <div class="contact-line">
         <span class="ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B241E" stroke-width="1.8"><path d="M3 5a2 2 0 0 1 2-2h2l2 5-2 1a11 11 0 0 0 6 6l1-2 5 2v2a2 2 0 0 1-2 2A16 16 0 0 1 3 5Z"/></svg></span>
         WhatsApp: (94) 98156-1644
@@ -753,9 +778,9 @@
         <div class="field" style="grid-column:1/-1;">
           <label for="acomodacao">Opção desejada</label>
           <select id="acomodacao" name="acomodacao">
-            <option>Diária (dia todo, até 12 pessoas)</option>
-            <option>Chalé Família (pernoite, até 6 pessoas)</option>
-            <option>Chalé Suíço (pernoite, até 4 pessoas)</option>
+            <option value="diaria">Diária (dia todo, até 12 pessoas)</option>
+            <option value="familia">Chalé Família (pernoite, até 6 pessoas)</option>
+            <option value="suico">Chalé Suíço (pernoite, até 4 pessoas)</option>
           </select>
         </div>
       </div>
@@ -763,8 +788,18 @@
         <label for="mensagem">Mensagem (opcional)</label>
         <textarea id="mensagem" name="mensagem" placeholder="Ocasião, dúvidas..."></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Enviar pelo WhatsApp</button>
-      <p class="form-note">Ao enviar, você será direcionado ao WhatsApp com os dados preenchidos.</p>
+      <div class="price-summary" aria-live="polite">
+        <h3>Resumo do checkout de teste</h3>
+        <div class="price-line"><span>Valor total configurado</span><strong id="summaryTotal">R$ 400,00</strong></div>
+        <div class="field deposit-field">
+          <label for="depositAmount">Sinal de 50% (editável para simulação)</label>
+          <input type="number" id="depositAmount" name="depositAmount" min="0" step="0.01" inputmode="decimal" value="200">
+        </div>
+      </div>
+      <button type="submit" class="btn test-checkout">Continuar para checkout de teste</button>
+      <div class="test-status" id="testStatus" role="status" hidden></div>
+      <button type="button" class="btn btn-dark whatsapp-fallback" id="whatsappFallback">Continuar pelo WhatsApp</button>
+      <p class="form-note">Modo TESTE: nenhum pagamento é realizado e nenhuma data é bloqueada no Google Calendar.</p>
     </form>
   </div>
 </section>
@@ -798,6 +833,30 @@
 </a>
 
 <script>
+  /*
+   * CONFIGURAÇÃO SEGURA — modo TESTE apenas.
+   * Os preços e o percentual de sinal ficam no frontend apenas para exibição
+   * e simulação. Nunca coloque aqui access tokens, secret keys ou credenciais.
+   * Produção: criar um backend para gerar a preferência Mercado Pago, receber
+   * o webhook e só então confirmar/bloquear a data no Google Calendar.
+   */
+  var reservationConfig = {
+    mode: 'test',
+    depositPercentage: 0.5,
+    mercadoPago: {
+      publicKey: '',
+      backendPreferenceEndpoint: '',
+      webhookEndpoint: ''
+    },
+    options: {
+      diaria: { label: 'Diária', total: 400 },
+      familia: { label: 'Chalé Família', total: 800 },
+      suico: { label: 'Chalé Suíço', total: 800 }
+    }
+  };
+  var currency = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+  var formatCurrency = function(value){ return currency.format(value); };
+
   var navToggle = document.getElementById('navToggle');
   var navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', function(){
@@ -814,7 +873,7 @@
       title: 'A ilha inteira por um dia',
       cap: 'Até 12 pessoas',
       rooms: '09h às 17h',
-      price: 'R$ 400',
+      price: formatCurrency(reservationConfig.options.diaria.total),
       desc: 'Acesso à ilha e à cozinha equipada (pratos, talheres, copos e panelas). Pessoa além da capacidade combinada: R$20 por pessoa.',
       wa: 'https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20a%20di%C3%A1ria%20no%20Recanto%20do%20Sossego',
       pins: ['pinFamilia','pinSuico']
@@ -824,7 +883,7 @@
       title: 'Casa com sala, banheiro e espaço para todos',
       cap: 'Até 6 pessoas',
       rooms: '18h às 17h (dia seguinte)',
-      price: 'R$ 800',
+      price: formatCurrency(reservationConfig.options.familia.total),
       desc: '1 quarto de casal, 1 cama de solteiro e 2 colchões de solteiro. Central de ar e espaço para rede.',
       wa: 'https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20o%20Chal%C3%A9%20Fam%C3%ADlia',
       pins: ['pinFamilia']
@@ -834,7 +893,7 @@
       title: 'Chalé com jacuzzi, mais reservado',
       cap: 'Até 4 pessoas',
       rooms: '18h às 17h (dia seguinte)',
-      price: 'R$ 800',
+      price: formatCurrency(reservationConfig.options.suico.total),
       desc: '1 cama de casal, sala, banheiro, jacuzzi e central de ar.',
       wa: 'https://wa.me/5594981561644?text=Ol%C3%A1!%20Quero%20reservar%20o%20Chal%C3%A9%20Su%C3%AD%C3%A7o',
       pins: ['pinSuico']
@@ -855,11 +914,81 @@
       document.getElementById('infoPrice').textContent = d.price;
       document.getElementById('infoDesc').textContent = d.desc;
       document.getElementById('infoCta').href = '#disponibilidade';
+      document.getElementById('acomodacao').value = btn.dataset.target;
+      document.getElementById('acomodacao').dispatchEvent(new Event('change'));
       allPins.forEach(function(p){
         p.classList.toggle('dim', d.pins.indexOf(p.id) === -1);
       });
     });
   });
+
+  var checkinInput = document.getElementById('checkin');
+  var availabilityDate = document.getElementById('availabilityDate');
+  var accommodationInput = document.getElementById('acomodacao');
+  var depositInput = document.getElementById('depositAmount');
+  var summaryTotal = document.getElementById('summaryTotal');
+  var testStatus = document.getElementById('testStatus');
+  var today = new Date();
+  var todayIso = today.getFullYear() + '-' +
+    String(today.getMonth() + 1).padStart(2, '0') + '-' +
+    String(today.getDate()).padStart(2, '0');
+  checkinInput.min = todayIso;
+  availabilityDate.min = todayIso;
+
+  function updatePriceSummary(){
+    var option = reservationConfig.options[accommodationInput.value];
+    var deposit = option.total * reservationConfig.depositPercentage;
+    summaryTotal.textContent = formatCurrency(option.total);
+    if(!depositInput.dataset.edited){ depositInput.value = deposit.toFixed(2); }
+  }
+
+  function syncSelectedDate(){
+    checkinInput.value = availabilityDate.value;
+  }
+
+  function getReservationData(){
+    var option = reservationConfig.options[accommodationInput.value];
+    return {
+      nome: document.getElementById('nome').value,
+      tel: document.getElementById('telefone').value,
+      data: checkinInput.value,
+      pessoas: document.getElementById('pessoas').value,
+      acomodacao: option.label,
+      total: option.total,
+      deposito: Number(depositInput.value || 0),
+      mensagem: document.getElementById('mensagem').value
+    };
+  }
+
+  function openWhatsApp(){
+    var data = getReservationData();
+    var texto = 'Olá! Gostaria de reservar no Recanto do Sossego.%0A' +
+      'Nome: ' + encodeURIComponent(data.nome) + '%0A' +
+      'WhatsApp: ' + encodeURIComponent(data.tel) + '%0A' +
+      'Data: ' + encodeURIComponent(data.data) + '%0A' +
+      'Número de pessoas: ' + encodeURIComponent(data.pessoas) + '%0A' +
+      'Opção: ' + encodeURIComponent(data.acomodacao) + '%0A' +
+      'Valor configurado: ' + encodeURIComponent(formatCurrency(data.total)) + '%0A' +
+      'Sinal sugerido para simulação: ' + encodeURIComponent(formatCurrency(data.deposito)) +
+      (data.mensagem ? ('%0AMensagem: ' + encodeURIComponent(data.mensagem)) : '');
+    window.open('https://wa.me/5594981561644?text=' + texto, '_blank');
+  }
+
+  availabilityDate.addEventListener('change', syncSelectedDate);
+  document.getElementById('useAvailabilityDate').addEventListener('click', function(){
+    if(!availabilityDate.value){
+      availabilityDate.focus();
+      return;
+    }
+    syncSelectedDate();
+    document.getElementById('reservas').scrollIntoView({behavior:'smooth'});
+  });
+  accommodationInput.addEventListener('change', function(){
+    delete depositInput.dataset.edited;
+    updatePriceSummary();
+  });
+  depositInput.addEventListener('input', function(){ depositInput.dataset.edited = 'true'; });
+  updatePriceSummary();
 
   var revealEls = document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
@@ -875,21 +1004,14 @@
 
   document.getElementById('bookForm').addEventListener('submit', function(e){
     e.preventDefault();
-    var nome = document.getElementById('nome').value;
-    var tel = document.getElementById('telefone').value;
-    var data = document.getElementById('checkin').value;
-    var pessoas = document.getElementById('pessoas').value;
-    var acomodacao = document.getElementById('acomodacao').value;
-    var mensagem = document.getElementById('mensagem').value;
-    var texto = 'Olá! Gostaria de reservar no Recanto do Sossego.%0A' +
-      'Nome: ' + encodeURIComponent(nome) + '%0A' +
-      'WhatsApp: ' + encodeURIComponent(tel) + '%0A' +
-      'Data: ' + encodeURIComponent(data) + '%0A' +
-      'Número de pessoas: ' + encodeURIComponent(pessoas) + '%0A' +
-      'Opção: ' + encodeURIComponent(acomodacao) +
-      (mensagem ? ('%0AMensagem: ' + encodeURIComponent(mensagem)) : '');
-    window.open('https://wa.me/5594981561644?text=' + texto, '_blank');
+    var data = getReservationData();
+    testStatus.textContent = 'CHECKOUT DE TESTE: dados preparados para ' + data.acomodacao +
+      ' em ' + data.data + '. Total: ' + formatCurrency(data.total) +
+      '. Sinal informado: ' + formatCurrency(data.deposito) +
+      '. Nenhum pagamento foi realizado, a reserva não foi confirmada e a data não foi bloqueada no Google Calendar.';
+    testStatus.hidden = false;
   });
+  document.getElementById('whatsappFallback').addEventListener('click', openWhatsApp);
 </script>
 
 </body>
