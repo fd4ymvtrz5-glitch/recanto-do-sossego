@@ -301,11 +301,22 @@
   .calendar-selection strong{color:var(--text-dark);}
   .calendar-selection .btn{padding:11px 18px;}
   .calendar-selection .btn:disabled{background:var(--line);color:var(--text-dim);cursor:not-allowed;transform:none;}
-  .calendar-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;font-size:12.5px;color:var(--text-dim);}
+  .calendar-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--sand);font-size:12.5px;color:var(--text-dark);}
   .calendar-legend span{display:inline-flex;align-items:center;gap:7px;}
   .legend-dot{width:12px;height:12px;border-radius:4px;background:var(--sand);border:1px solid var(--line);}
   .legend-dot.unavailable{background:#ead8d0;border-color:#d5b7aa;}
   .legend-dot.today{background:#fff;border-color:var(--wood);}
+  .availability-summary{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;}
+  .availability-list{min-width:0;padding:18px;background:var(--sand);border:1px solid var(--line);border-radius:var(--radius);}
+  .availability-list h4{font-size:1.1rem;line-height:1.2;margin-bottom:10px;}
+  .availability-list.available h4{color:var(--ink-3);}
+  .availability-list.rented h4{color:#8a5140;}
+  .availability-list p{font-size:13px;color:var(--text-dim);line-height:1.45;}
+  .availability-list ul{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none;}
+  .availability-list li{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dark);}
+  .availability-list li::before{content:'•';color:var(--moss);margin-right:7px;}
+  .availability-list.rented li::before{color:#b06a34;}
+  @media (max-width:560px){ .availability-summary{grid-template-columns:1fr;} }
   @media (max-width:900px){ .availability-grid{grid-template-columns:1fr;gap:36px;} }
   @media (max-width:600px){
     .calendar-panel{padding:18px 14px;}
@@ -741,6 +752,18 @@
         <span><i class="legend-dot unavailable"></i>Indisponível</span>
         <span><i class="legend-dot today"></i>Hoje</span>
       </div>
+      <div class="availability-summary" aria-label="Resumo da disponibilidade">
+        <div class="availability-list available">
+          <h4>Próximas datas disponíveis</h4>
+          <ul id="availableDatesList"></ul>
+          <p id="availableDatesEmpty" hidden>Não há datas disponíveis neste horizonte.</p>
+        </div>
+        <div class="availability-list rented">
+          <h4>Datas já alugadas</h4>
+          <ul id="rentedDatesList"></ul>
+          <p id="rentedDatesEmpty" hidden>Nenhuma data alugada cadastrada.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -866,6 +889,59 @@
     });
   }
 
+  function getUnavailableDateKeys(){
+    var dateKeys = [];
+    unavailableDates.forEach(function(entry){
+      if(typeof entry === 'string'){
+        dateKeys.push(entry);
+        return;
+      }
+      if(!entry || !entry.start || !entry.end){ return; }
+      var current = new Date(entry.start + 'T00:00:00');
+      var end = new Date(entry.end + 'T00:00:00');
+      while(current <= end){
+        dateKeys.push(formatDateKey(current));
+        current.setDate(current.getDate() + 1);
+      }
+    });
+    return dateKeys.filter(function(dateKey, index, allKeys){
+      return allKeys.indexOf(dateKey) === index;
+    }).sort();
+  }
+
+  function appendDateListItem(list, dateKey){
+    var item = document.createElement('li');
+    item.textContent = formatDateForDisplay(dateKey);
+    list.appendChild(item);
+  }
+
+  function renderAvailabilitySummary(){
+    var availableList = document.getElementById('availableDatesList');
+    var availableEmpty = document.getElementById('availableDatesEmpty');
+    var rentedList = document.getElementById('rentedDatesList');
+    var rentedEmpty = document.getElementById('rentedDatesEmpty');
+    var visibleMonthStart = new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1);
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var searchDate = visibleMonthStart > today ? visibleMonthStart : today;
+    var availableDates = [];
+    var horizonDays = 62;
+    var rentedDates = getUnavailableDateKeys();
+
+    availableList.innerHTML = '';
+    rentedList.innerHTML = '';
+    for(var offset = 0; offset < horizonDays && availableDates.length < 8; offset++){
+      var candidate = new Date(searchDate);
+      candidate.setDate(searchDate.getDate() + offset);
+      var candidateKey = formatDateKey(candidate);
+      if(!isDateUnavailable(candidateKey)){ availableDates.push(candidateKey); }
+    }
+    availableDates.forEach(function(dateKey){ appendDateListItem(availableList, dateKey); });
+    rentedDates.forEach(function(dateKey){ appendDateListItem(rentedList, dateKey); });
+    availableEmpty.hidden = availableDates.length > 0;
+    rentedEmpty.hidden = rentedDates.length > 0;
+  }
+
   function renderCalendar(){
     var year = calendarDate.getFullYear();
     var month = calendarDate.getMonth();
@@ -912,6 +988,7 @@
       if(dateKey === selectedCalendarDate){ dayButton.classList.add('selected'); }
       calendarDays.appendChild(dayButton);
     }
+    renderAvailabilitySummary();
   }
 
   document.getElementById('previousMonth').addEventListener('click', function(){
