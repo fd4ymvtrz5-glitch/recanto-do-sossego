@@ -854,7 +854,7 @@
       document.getElementById('infoRooms').textContent = d.rooms;
       document.getElementById('infoPrice').textContent = d.price;
       document.getElementById('infoDesc').textContent = d.desc;
-      document.getElementById('infoCta').href = d.wa;
+      document.getElementById('infoCta').href = '#disponibilidade';
       allPins.forEach(function(p){
         p.classList.toggle('dim', d.pins.indexOf(p.id) === -1);
       });
