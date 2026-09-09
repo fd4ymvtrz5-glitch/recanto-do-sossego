@@ -154,6 +154,14 @@
 
   .hero-art{position:relative;height:420px;}
   .hero-art svg{width:100%;height:100%;}
+  .brand-feature-logo{
+    width:min(100%, 360px);
+    height:auto;
+    object-fit:contain;
+    margin:0 auto;
+  }
+  .island-map .brand-feature-logo{width:min(100%, 320px);}
+  .island-map svg{display:none;}
 
   @media (max-width:900px){
     .hero-inner{grid-template-columns:1fr;padding-bottom:40px;}
@@ -718,26 +726,8 @@
         <div class="hero-stat"><b>50%</b><span>Sinal garante a reserva</span></div>
       </div>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <svg viewBox="0 0 480 420" fill="none">
-        <ellipse cx="240" cy="360" rx="220" ry="18" fill="#0A1C18"/>
-        <path d="M40 250 Q90 230 140 248 T240 250 T340 240 T440 255" stroke="#2E534B" stroke-width="2" fill="none" opacity="0.6"/>
-        <path d="M20 280 Q90 258 160 278 T300 276 T460 288" stroke="#2E534B" stroke-width="2" fill="none" opacity="0.4"/>
-        <path d="M110 320 C90 260 140 190 240 185 C330 180 380 250 360 315 C330 345 280 300 240 305 C190 310 150 350 110 320Z" fill="#274A41"/>
-        <path d="M120 315 C105 265 150 205 235 200 C315 196 358 255 345 308" fill="#345F53"/>
-        <g transform="translate(178,150)">
-          <rect x="0" y="30" width="52" height="46" fill="#B06A34"/>
-          <path d="M-6 30 L26 4 L58 30Z" fill="#8A4F22"/>
-          <rect x="14" y="46" width="10" height="14" fill="#0F2622"/>
-          <rect x="30" y="46" width="10" height="10" fill="#0F2622"/>
-        </g>
-        <g transform="translate(268,178)">
-          <rect x="0" y="20" width="34" height="34" fill="#5C7A52"/>
-          <path d="M-5 20 L17 0 L39 20Z" fill="#3F5A38"/>
-          <rect x="10" y="32" width="8" height="10" fill="#0F2622"/>
-        </g>
-        <circle cx="400" cy="70" r="34" fill="#D1A24A" opacity="0.85"/>
-      </svg>
+    <div class="hero-art">
+      <img class="brand-feature-logo" src="images/logo-recanto-do-sossego.png" alt="Logo do Recanto do Sossego, ilha particular em Tucuruí">
     </div>
   </div>
 </section>
@@ -801,7 +791,8 @@
           <a href="#disponibilidade" class="btn btn-primary" id="infoCta">Consultar disponibilidade</a>
         </div>
       </div>
-      <div class="island-map" aria-hidden="true">
+      <div class="island-map">
+        <img class="brand-feature-logo" src="images/logo-recanto-do-sossego.png" alt="Logo do Recanto do Sossego, chalés Família e Suíço">
         <svg viewBox="0 0 420 380">
           <path d="M20 210 Q90 190 160 208 T260 206 T400 218" stroke="#2E534B" stroke-width="2" fill="none" opacity="0.5"/>
           <path d="M0 240 Q80 220 150 238 T280 235 T420 246" stroke="#2E534B" stroke-width="2" fill="none" opacity="0.35"/>
