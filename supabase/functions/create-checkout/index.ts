@@ -2,7 +2,7 @@ import { corsHeaders, json, options } from "../_shared/cors.ts";
 import { adminClient } from "../_shared/supabase.ts";
 
 const OPTIONS = {
-  diaria: { title: "Diária na ilha", total: 400, guests: 12 },
+  diaria: { title: "Diária na ilha", total: 600, guests: 12 },
   familia: { title: "Chalé Família", total: 800, guests: 6 },
   suico: { title: "Chalé Suíço", total: 800, guests: 4 },
 } as const;

@@ -73,7 +73,7 @@ begin
   end if;
 
   select case p_reservation_option
-    when 'diaria' then 400
+    when 'diaria' then 600
     when 'familia' then 800
     when 'suico' then 800
     else null
